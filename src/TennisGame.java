@@ -15,10 +15,10 @@ public class TennisGame {
 	}
 	
 	private void checkGameEnded() {
-		if (player1Points>=4 && player1Points-player2Points>=2)
-			gameEnded = true;
-		else if (player2Points>=4 && player2Points-player1Points>=2)
-			gameEnded = true;
+		if (player1Points>=4 && player1Points-player2Points>=2) {
+			this.gameEnded = true;
+		} else if (player2Points>=4 && player2Points-player1Points>=2)
+			this.gameEnded = true;
 	}
 	
 	private String getScore(int points) {
@@ -32,24 +32,25 @@ public class TennisGame {
 	}
 	
 	public void player1Scored() throws TennisGameException {
-		if (gameEnded) {
-			throw new TennisGameException();
-		}
-		else {
-			player1Points++;
-			checkGameEnded();
-		}			
+		player1Points = increasePlayerScore(player1Points);
+		checkGameEnded();
 	}
 	
 	public void player2Scored() throws TennisGameException {
+		player2Points = increasePlayerScore(player2Points);
+		checkGameEnded();
+	}
+	
+	
+	public int increasePlayerScore(int playerScore) throws TennisGameException { //Parametrized method
 		if (gameEnded) {
 			throw new TennisGameException();
+		} else {
+			playerScore++;
 		}
-		else {
-			player2Points++;
-			checkGameEnded();
-		}			
+		return playerScore;
 	}
+	
 	
 	public String getScore() {
 // Here is the format of the scores:
@@ -70,9 +71,13 @@ public class TennisGame {
 			String player1Score = getScore(player1Points);
 			String player2Score = getScore(player2Points);
 			
-			if (gameEnded) {
-				if (player1Points > player2Points)
+			//if (player1Points > player2Points && player1Points-player2Points>=2)
+			//checkGameEnded();
+			if (this.gameEnded) {
+				if (player1Points > player2Points)	
+				{
 					return "player1 wins";
+				}
 				else
 					return "player2 wins";
 			}

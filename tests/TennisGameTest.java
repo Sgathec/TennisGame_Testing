@@ -2,8 +2,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
-
 public class TennisGameTest {
 	
 // Here is the format of the scores: "player1Score - player2Score"
@@ -53,11 +51,7 @@ public class TennisGameTest {
 	
 	@Test
 	public void testTennisGame_PlayersGets1PointAndScore15() throws TennisGameException {
-		//Arrange
-		TennisGame game = new TennisGame();
-		
-		game.player1Scored();
-		game.player2Scored();
+		TennisGame game = get1and1Game(); //Refactored with the help of JDeodorant (long method -> extract method)
 		
 		//Act
 		String score = game.getScore();
@@ -65,6 +59,13 @@ public class TennisGameTest {
 		//Assert
 		assertEquals("One point score incorrect", "15 - 15", score);
 		
+	}
+
+	private TennisGame get1and1Game() throws TennisGameException { //Refactored with the help of JDeodorant (long method -> extract method)
+		TennisGame game = new TennisGame();
+		game.player1Scored();
+		game.player2Scored();
+		return game;
 	}
 	
 	@Test
@@ -118,8 +119,11 @@ public class TennisGameTest {
 		TennisGame game = new TennisGame();
 		
 		game.player1Scored();
+		
 		game.player1Scored();
+
 		game.player1Scored();
+		
 		game.player1Scored();
 		
 		//Act
@@ -158,8 +162,9 @@ public class TennisGameTest {
 		game.player1Scored();
 		game.player1Scored();
 		game.player1Scored();
+
 		//Act
 		// This statement should cause an exception
-		game.player1Scored();			
+		game.player1Scored();
 	}		
 }
